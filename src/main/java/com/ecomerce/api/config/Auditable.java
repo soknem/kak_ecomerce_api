@@ -13,26 +13,27 @@ import org.springframework.data.annotation.LastModifiedBy;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
-import java.sql.Timestamp;
+import java.time.LocalDateTime;
 
 @NoArgsConstructor
 @Getter
 @Setter
 @MappedSuperclass
 @EntityListeners(AuditingEntityListener.class)
-public abstract class Auditable {
+public abstract class Auditable<T> {
+
+    @CreatedBy
+    protected T createdBy;
 
     @Temporal(TemporalType.TIMESTAMP)
     @CreatedDate
-    private Timestamp createdAt;
+    protected LocalDateTime createdDate;
 
-    @CreatedBy
-    private String createdBy;
+    @LastModifiedBy
+    protected T lastModifiedBy;
 
     @Temporal(TemporalType.TIMESTAMP)
     @LastModifiedDate
-    private Timestamp lastModifiedAt;
+    protected LocalDateTime lastModifiedDate;
 
-    @LastModifiedBy
-    private String lastModifiedBy;
 }

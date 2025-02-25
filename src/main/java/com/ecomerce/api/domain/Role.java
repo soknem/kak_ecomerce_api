@@ -13,7 +13,7 @@ import lombok.ToString;
 @ToString
 @NoArgsConstructor
 @Table(name = "roles")
-public class Role extends Auditable {
+public class Role extends Auditable<String> {
 
 
     @Id
