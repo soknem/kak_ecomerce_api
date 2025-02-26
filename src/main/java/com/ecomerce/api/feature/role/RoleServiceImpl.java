@@ -14,13 +14,15 @@ import org.springframework.http.HttpStatusCode;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.util.Objects;
+
 @Service
 @RequiredArgsConstructor
 @Slf4j
 public class RoleServiceImpl implements RoleService {
 
     private final RoleRepository roleRepository;
-//    private final RoleMapper roleMapper;
+    private final RoleMapper roleMapper;
 
     @Override
     public void createRole(RoleRequest roleRequest) {
@@ -29,9 +31,11 @@ public class RoleServiceImpl implements RoleService {
             throw new ResponseStatusException(HttpStatus.CONFLICT, String.format("role = %s already existed",
                     roleRequest.roleName()));
         }
+//
+//        Role role = new Role();
+//        role.setRoleName(roleRequest.roleName());
 
-        Role role = new Role();
-        role.setRoleName(roleRequest.roleName());
+        Role role = roleMapper.fromRequest(roleRequest);
 
         roleRepository.save(role);
 
@@ -44,7 +48,7 @@ public class RoleServiceImpl implements RoleService {
                 roleRepository.findByRoleName(roleName).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, String.format("role = %s has been not found", roleName)));
 
 
-        return new RoleResponse(role.getRoleName());
+        return roleMapper.toResponse(role);
     }
 
     @Override
@@ -54,7 +58,7 @@ public class RoleServiceImpl implements RoleService {
 
         Page<Role> rolePage = roleRepository.findAll(pageRequest);
 
-        return rolePage.map(role -> new RoleResponse(role.getRoleName()));
+        return rolePage.map(roleMapper::toResponse);
     }
 
     @Override
@@ -64,6 +68,11 @@ public class RoleServiceImpl implements RoleService {
         Role role =
                 roleRepository.findByRoleName(roleName).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, String.format("role = %s has been not found", roleName)));
 
+        if(!Objects.equals(role.getRoleName(), roleUpdateRequest.roleName()) &&roleRepository.existsByRoleName(roleUpdateRequest.roleName())){
+
+        throw new ResponseStatusException(HttpStatus.CONFLICT,String.format("role = %s already existed",
+                roleUpdateRequest.roleName()));
+        }
 
         role.setRoleName(roleUpdateRequest.roleName());
 
