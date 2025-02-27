@@ -93,7 +93,7 @@ public class CategoryServiceImpl implements CategoryService {
 
         PageRequest pageRequest = PageRequest.of(pageNumber,pageSize);
 
-        Page<Product> productPage= productRepository.findAllByCategoryAlias(categoryAlias);
+        Page<Product> productPage= productRepository.findAllByCategoryAlias(pageRequest,categoryAlias);
 
         return productPage.map(productMapper::toProductResponse);
     }

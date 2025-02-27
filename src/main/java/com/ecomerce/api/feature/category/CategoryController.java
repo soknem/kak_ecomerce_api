@@ -52,7 +52,7 @@ public class CategoryController {
         categoryService.deleteCategoryByAlias(alias);
     }
 
-    @GetMapping("/{alias}/product")
+    @GetMapping("/{alias}/products")
     public Page<ProductResponse> getAllProductByCategory(
             @PathVariable String alias,
             @RequestParam(defaultValue = "0") int pageNumber,

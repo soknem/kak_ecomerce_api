@@ -7,6 +7,8 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
+import java.util.Set;
+
 @Entity
 @Getter
 @Setter
@@ -36,4 +38,7 @@ public class User extends Auditable<String> {
 
     @ManyToOne()
     private Role role;
+
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+    Set<ShippingAddress> shippingAddresses;
 }
