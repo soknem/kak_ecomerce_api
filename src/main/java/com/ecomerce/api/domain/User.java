@@ -7,26 +7,33 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
-import java.util.List;
-import java.util.Set;
-
 @Entity
 @Getter
 @Setter
 @ToString
 @NoArgsConstructor
-@Table(name = "roles")
-public class Role extends Auditable<String> {
-
+@Table(name = "users")
+public class User extends Auditable<String> {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(unique = true)
-    private String roleName;
+    @Column(unique = true,length = 100)
+    private String uuid;
 
-    @OneToMany(mappedBy = "role", cascade = CascadeType.ALL, orphanRemoval = true)
-    Set<User> users;
+    private String username;
 
+    private String password;
+
+    private String email;
+
+    private String phone;
+
+    private String avatar;
+
+    private String address;
+
+    @ManyToOne()
+    private Role role;
 }

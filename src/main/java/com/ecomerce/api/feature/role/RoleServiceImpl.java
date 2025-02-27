@@ -27,16 +27,16 @@ public class RoleServiceImpl implements RoleService {
     @Override
     public void createRole(RoleRequest roleRequest) {
 
+        //validate role from request with role in database
         if (roleRepository.existsByRoleName(roleRequest.roleName())) {
             throw new ResponseStatusException(HttpStatus.CONFLICT, String.format("role = %s already existed",
                     roleRequest.roleName()));
         }
-//
-//        Role role = new Role();
-//        role.setRoleName(roleRequest.roleName());
 
+        //map role from dto to entity
         Role role = roleMapper.fromRequest(roleRequest);
 
+        //save data to database
         roleRepository.save(role);
 
     }
@@ -68,10 +68,10 @@ public class RoleServiceImpl implements RoleService {
         Role role =
                 roleRepository.findByRoleName(roleName).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, String.format("role = %s has been not found", roleName)));
 
-        if(!Objects.equals(role.getRoleName(), roleUpdateRequest.roleName()) &&roleRepository.existsByRoleName(roleUpdateRequest.roleName())){
+        if (!Objects.equals(role.getRoleName(), roleUpdateRequest.roleName()) && roleRepository.existsByRoleName(roleUpdateRequest.roleName())) {
 
-        throw new ResponseStatusException(HttpStatus.CONFLICT,String.format("role = %s already existed",
-                roleUpdateRequest.roleName()));
+            throw new ResponseStatusException(HttpStatus.CONFLICT, String.format("role = %s already existed",
+                    roleUpdateRequest.roleName()));
         }
 
         role.setRoleName(roleUpdateRequest.roleName());

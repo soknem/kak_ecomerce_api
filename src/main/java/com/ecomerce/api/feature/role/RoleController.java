@@ -17,11 +17,11 @@ import org.springframework.web.bind.annotation.*;
 @RequiredArgsConstructor
 public class RoleController {
 
-    private  final RoleService roleService;
+    private final RoleService roleService;
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public void createRole(@Valid @RequestBody RoleRequest roleRequest){
+    public void createRole(@Valid @RequestBody RoleRequest roleRequest) {
 
         roleService.createRole(roleRequest);
 
@@ -29,28 +29,28 @@ public class RoleController {
 
     @GetMapping
     public Page<RoleResponse> getAllRoles(
-            @RequestParam (defaultValue = "0") int pageNumber,
-            @RequestParam (defaultValue = "25") int pageSize){
+            @RequestParam(defaultValue = "0") int pageNumber,
+            @RequestParam(defaultValue = "25") int pageSize) {
 
-        return roleService.getAllRoles(pageNumber,pageSize);
+        return roleService.getAllRoles(pageNumber, pageSize);
     }
 
     @GetMapping("/{roleName}")
-    public RoleResponse getRoleByName(@PathVariable String roleName){
+    public RoleResponse getRoleByName(@PathVariable String roleName) {
 
         return roleService.getRoleRoleName(roleName);
     }
 
     @PutMapping("/{roleName}")
     public RoleResponse updateByRoleName(@PathVariable String roleName,
-                                  @Valid @RequestBody RoleUpdateRequest roleUpdateRequest){
+                                         @Valid @RequestBody RoleUpdateRequest roleUpdateRequest) {
 
-      return   roleService.updateRoleByRoleName(roleName,roleUpdateRequest);
+        return roleService.updateRoleByRoleName(roleName, roleUpdateRequest);
     }
 
     @DeleteMapping("/{roleName}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void deleteByRoleName(@PathVariable String roleName){
+    public void deleteByRoleName(@PathVariable String roleName) {
 
         roleService.deleteRoleByRoleName(roleName);
     }
