@@ -3,6 +3,7 @@ package com.ecomerce.api.feature.category;
 import com.ecomerce.api.feature.category.dto.CategoryRequest;
 import com.ecomerce.api.feature.category.dto.CategoryResponse;
 import com.ecomerce.api.feature.category.dto.CategoryUpdateRequest;
+import com.ecomerce.api.feature.product.dto.ProductResponse;
 import org.springframework.data.domain.Page;
 
 /**
@@ -63,4 +64,14 @@ public interface CategoryService {
      * @since 2025
      */
     void deleteCategoryByAlias(String alias);
+
+    /**
+     * get all products by category
+     *
+     * @param categoryAlias is the alias of category to get all products
+     * @return {@link  Page<ProductResponse>}
+     * @author pov soknem
+     * @since 2025
+     */
+    Page<ProductResponse> getAllProductsByCategory(String categoryAlias,int pageNumber, int pageSize);
 }

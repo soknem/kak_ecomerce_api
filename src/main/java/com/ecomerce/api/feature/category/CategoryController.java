@@ -3,6 +3,7 @@ package com.ecomerce.api.feature.category;
 import com.ecomerce.api.feature.category.dto.CategoryRequest;
 import com.ecomerce.api.feature.category.dto.CategoryResponse;
 import com.ecomerce.api.feature.category.dto.CategoryUpdateRequest;
+import com.ecomerce.api.feature.product.dto.ProductResponse;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -49,5 +50,14 @@ public class CategoryController {
     public void deleteCategoryByAlias(@PathVariable String alias) {
 
         categoryService.deleteCategoryByAlias(alias);
+    }
+
+    @GetMapping("/{alias}/product")
+    public Page<ProductResponse> getAllProductByCategory(
+            @PathVariable String alias,
+            @RequestParam(defaultValue = "0") int pageNumber,
+            @RequestParam(defaultValue = "25") int pageSize
+    ){
+        return categoryService.getAllProductsByCategory(alias,pageNumber,pageSize);
     }
 }

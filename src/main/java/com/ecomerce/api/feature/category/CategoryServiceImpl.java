@@ -1,10 +1,14 @@
 package com.ecomerce.api.feature.category;
 
 import com.ecomerce.api.domain.Category;
+import com.ecomerce.api.domain.Product;
 import com.ecomerce.api.feature.category.dto.CategoryRequest;
 import com.ecomerce.api.feature.category.dto.CategoryResponse;
 import com.ecomerce.api.feature.category.dto.CategoryUpdateRequest;
+import com.ecomerce.api.feature.product.ProductRepository;
+import com.ecomerce.api.feature.product.dto.ProductResponse;
 import com.ecomerce.api.mapper.CategoryMapper;
+import com.ecomerce.api.mapper.ProductMapper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
@@ -23,6 +27,8 @@ public class CategoryServiceImpl implements CategoryService {
 
     private final CategoryRepository categoryRepository;
     private final CategoryMapper categoryMapper;
+    private final ProductRepository productRepository;
+    private final ProductMapper productMapper;
 
     @Override
     public void createCategory(CategoryRequest categoryRequest) {
@@ -80,5 +86,15 @@ public class CategoryServiceImpl implements CategoryService {
                 categoryRepository.findByAlias(alias).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, String.format("category = %s has not been found", alias)));
 
         categoryRepository.delete(category);
+    }
+
+    @Override
+    public Page<ProductResponse> getAllProductsByCategory(String categoryAlias,int pageNumber, int pageSize) {
+
+        PageRequest pageRequest = PageRequest.of(pageNumber,pageSize);
+
+        Page<Product> productPage= productRepository.findAllByCategoryAlias(categoryAlias);
+
+        return productPage.map(productMapper::toProductResponse);
     }
 }
