@@ -1,5 +1,6 @@
 package com.ecomerce.api.feature.user;
 
+import com.ecomerce.api.feature.cart.dto.CartResponse;
 import com.ecomerce.api.feature.user.dto.UserRequest;
 import com.ecomerce.api.feature.user.dto.UserResponse;
 import com.ecomerce.api.feature.user.dto.UserUpdateRequest;
@@ -62,4 +63,15 @@ public interface UserService {
      * @since 2025
      */
     void deleteUserByUuid(String uuid);
+
+    Page<CartResponse> getCartByUserUuid(String userUuid, int pageNumber, int pageSize);
+
+    /**
+     * Generates a strong password.
+     *
+     * @param length is the length of the password to generate
+     * @return {@link String} the generated password
+     * @since 1.0 (2024)
+     */
+    String generateStrongPassword(int length);
 }

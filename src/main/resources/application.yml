@@ -14,3 +14,19 @@ spring:
     properties:
       hibernate:
         format_sql: true
+
+
+
+ACCESS_TOKEN_PRIVATE_KEY_PATH: access-refresh-token-keys/access-token-private.key
+ACCESS_TOKEN_PUBLIC_KEY_PATH: access-refresh-token-keys/access-token-public.key
+# This is for the refresh token
+REFRESH_TOKEN_PRIVATE_KEY_PATH: access-refresh-token-keys/refresh-token-private.key
+REFRESH_TOKEN_PUBLIC_KEY_PATH: access-refresh-token-keys/refresh-token-public.key
+
+logging:
+  level:
+    root: INFO
+    web: DEBUG
+    org.springframework.security: DEBUG  # Logs Spring Security details
+    org.springframework.web: DEBUG       # Logs web requests
+    org.hibernate.SQL: DEBUG             # Logs SQL queries

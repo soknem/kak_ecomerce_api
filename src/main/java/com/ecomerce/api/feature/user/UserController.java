@@ -1,5 +1,6 @@
 package com.ecomerce.api.feature.user;
 
+import com.ecomerce.api.feature.cart.dto.CartResponse;
 import com.ecomerce.api.feature.user.dto.UserRequest;
 import com.ecomerce.api.feature.user.dto.UserResponse;
 import com.ecomerce.api.feature.user.dto.UserUpdateRequest;
@@ -49,5 +50,15 @@ public class UserController {
     public void deleteUserByUuid(@PathVariable String uuid) {
 
         userService.deleteUserByUuid(uuid);
+    }
+
+    @GetMapping("/{uuid}/carts")
+    public Page<CartResponse> getAllCartsByUserUuid(
+            @PathVariable String uuid,
+            @RequestParam(defaultValue = "0") int pageNumber,
+            @RequestParam(defaultValue = "25") int pageSize
+    ){
+
+        return userService.getCartByUserUuid(uuid,pageNumber,pageSize);
     }
 }

@@ -21,13 +21,17 @@ public class User extends Auditable<String> {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(unique = true,length = 100)
+    @Column(unique = true, length = 100)
     private String uuid;
 
+    @Column(unique = true)
     private String username;
 
     private String password;
 
+    private String rawPassword;
+
+    @Column(unique = true)
     private String email;
 
     private String phone;
@@ -35,6 +39,13 @@ public class User extends Auditable<String> {
     private String avatar;
 
     private String address;
+
+    private boolean isAccountNonExpired;
+    private boolean isAccountNonLocked;
+    private boolean isCredentialsNonExpired;
+
+    private Boolean isDeleted;
+    private Boolean isChangePassword;
 
     @ManyToOne()
     private Role role;
