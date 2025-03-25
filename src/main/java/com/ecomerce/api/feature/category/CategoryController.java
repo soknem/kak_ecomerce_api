@@ -8,6 +8,7 @@ import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -25,6 +26,7 @@ public class CategoryController {
     }
 
     @GetMapping
+    @PreAuthorize("hasAnyAuthority('ADMIN','STAFF')")
     public Page<CategoryResponse> getAllCategories(
             @RequestParam(defaultValue = "0") int pageNumber,
             @RequestParam(defaultValue = "25") int pageSize
@@ -33,6 +35,7 @@ public class CategoryController {
     }
 
     @GetMapping("/{alias}")
+    @PreAuthorize("hasAnyAuthority('ADMIN','STAFF')")
     public CategoryResponse getCategoryByAlias(@PathVariable String alias) {
 
         return categoryService.getCategoryByAlias(alias);

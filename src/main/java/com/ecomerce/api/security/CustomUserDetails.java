@@ -4,6 +4,7 @@ import com.ecomerce.api.domain.User;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -16,6 +17,7 @@ import java.util.Set;
 @Getter
 @Setter
 @NoArgsConstructor
+@Slf4j
 public class CustomUserDetails implements UserDetails {
 
 
@@ -28,7 +30,9 @@ public class CustomUserDetails implements UserDetails {
     }
 
     public String getRole(){
+
         return user.getRole().getRoleName();
+
     }
 
 
@@ -48,7 +52,8 @@ public class CustomUserDetails implements UserDetails {
         // create a list of authorities
         List<GrantedAuthority> authorities = new ArrayList<>();
 
-        authorities.add(new SimpleGrantedAuthority("ADMIN"));
+        authorities.add(new SimpleGrantedAuthority(user.getRole().getRoleName()));
+
 
         return authorities;
     }

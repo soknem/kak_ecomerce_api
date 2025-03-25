@@ -47,7 +47,7 @@ public class TokenGenerator {
         //  we can also create scope for the token from the userDetails object here !
         JwtClaimsSet claims = JwtClaimsSet.builder()
                 .issuedAt(now)
-                .expiresAt(now.plus(1, ChronoUnit.HOURS))
+                .expiresAt(now.plus(30, ChronoUnit.SECONDS))
                 .subject(userDetails.getUsername())
                 .issuer("restful-api")
                 .claim("authorities",authority)
@@ -66,7 +66,7 @@ public class TokenGenerator {
 
         JwtClaimsSet claims = JwtClaimsSet.builder()
                 .issuedAt(now)
-                .expiresAt(now.plus(1, ChronoUnit.HOURS))
+                .expiresAt(now.plus(30, ChronoUnit.SECONDS))
                 .subject(userDetails.getUsername())
                 .issuer("restful-api")
                 .claim("authorities",authority)
