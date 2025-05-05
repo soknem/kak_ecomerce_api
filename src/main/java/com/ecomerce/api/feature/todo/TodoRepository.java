@@ -38,5 +38,7 @@ public interface TodoRepository extends JpaRepository<Todo,Long> {
 
     List<Todo> findByDeadLine(LocalDate date);
 
+    List<Todo> findByTitleContains(String title);
+
 
 }

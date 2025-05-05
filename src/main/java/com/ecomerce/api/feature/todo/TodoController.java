@@ -58,8 +58,8 @@ public class TodoController {
         todoService.deleteTodoByUuid(uuid);
     }
 
-    @PutMapping("/{uuid}/toggle")
-    public TodoResponse toggleTodoByUuid(@PathVariable String uuid) {
+    @PutMapping("/{uuid}/done/toggle")
+    public TodoResponse toggleTodoIsDoneByUuid(@PathVariable String uuid) {
 
       return  todoService.toggleIsDone(uuid);
     }
@@ -79,5 +79,17 @@ public class TodoController {
     public MyDayDateResponse getTodoMyDayDate(){
         return todoService.getMyDayDate();
 
+    }
+
+    @PutMapping("/{uuid}/important/toggle")
+    public TodoResponse toggleTodoIsImportantByUuid(@PathVariable String uuid) {
+
+        return  todoService.toggleIsImportant(uuid);
+    }
+
+    @GetMapping("/search")
+    public TodoSearchResponse searchTodos(@RequestParam String title) {
+
+        return  todoService.getSearch(title);
     }
 }

@@ -33,3 +33,8 @@ logging:
     org.springframework.security: DEBUG  # Logs Spring Security details
     org.springframework.web: DEBUG       # Logs web requests
     org.hibernate.SQL: DEBUG             # Logs SQL queries
+    org:
+      hibernate:
+        orm:
+          jdbc:
+            bind: TRACE

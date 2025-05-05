@@ -24,4 +24,8 @@ public interface TodoService {
 
     MyDayDateResponse getMyDayDate();
 
+    TodoResponse toggleIsImportant(String uuid);
+
+    TodoSearchResponse getSearch(String title);
+
 }

@@ -10,7 +10,9 @@ public record TodoResponse(
 
         LocalDate dateLine,
 
-        Boolean isDone
+        Boolean isDone,
+
+        Boolean isImportant
 
         ) {
 }
